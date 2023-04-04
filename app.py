@@ -58,7 +58,7 @@ tab1.subheader("Limitations")
 
 tab1.write('''The implementation available on this website have some limitations such as:
             \n 1. All the images uploaded and generated will have a 224x224 resolution, which is very small for most applications. New models will be created and uploaded to allow for greater resolution.
-            \n 2. Only .jpg and .png files can be used, other image files will throw errors. Furthermore, all images will be converted to .png file type.
+            \n 2. Only .png files can created from the models. On theory, all common image types can be inputed such as .jpg and .bmp, however this is not tested.
             \n 3. The model gives preference for better quality recovered secret images instead of better quality stego images. This means that the current model is not optimized for applications such as
             watermarking. In the future multiple models will be available and the user will be able to choose which image will be less distorted.''')
 
@@ -81,10 +81,17 @@ def get_image(img_type, tab_name, scale):
         if bytes_data != None:
             # Open image and convert to RGB
             image = Image.open(bytes_data)
-            metadata = image.text
+
             if image.mode != "RGB":
                 image = image.convert(mode="RGB")
 
+            if image.format != 'PNG':
+                #with io.BytesIO() as f:
+                buf = io.BytesIO()
+                image.save(buf, format='PNG')
+                buf.seek(0)
+                image = Image.open(buf)
+            metadata = image.text
             # Rescale images so that they can be input into model
             width, height = scale, scale
             resized = image.resize(size=(width, height))
