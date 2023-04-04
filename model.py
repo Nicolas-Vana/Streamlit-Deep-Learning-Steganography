@@ -4,7 +4,6 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 import numpy as np
 import streamlit as st
-import matplotlib.pyplot as plt
 import math
 
 from skimage.metrics import structural_similarity as ssim
