@@ -3,20 +3,14 @@ import os
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 import numpy as np
-from skimage.metrics import structural_similarity as ssim
 import streamlit as st
 import matplotlib.pyplot as plt
 import math
 
-
+from skimage.metrics import structural_similarity as ssim
 import tensorflow as tf
 import tensorflow_wavelets.Layers.DWT as DWT
 from tensorflow import keras
-
-
-# root = Path(os.getcwd())
-# hide = root / 'hide'
-# reveal = root / 'reveal'
 
 # Loss function used in the models. Required to load the model
 def get_custom_loss(y_true, y_pred):
